@@ -4,7 +4,6 @@ from sqlalchemy import create_engine
 from json import dumps
 
 # Assuming dbs is in your app root folder
-e = create_engine('sqlite:///salaries.db') 
 fixtures = create_engine('sqlite:///Fixtures.db')
 app = Flask(__name__)
 api = Api(app)
