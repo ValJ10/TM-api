@@ -38,47 +38,29 @@ class Fixtures(Resource):
         conn.close()
         return result
 
-'''
-Availability" VARCHAR NOT NULL, 
-	"CurrentValue" VARCHAR NOT NULL, 
-	"International Caps" VARCHAR NOT NULL, 
-	"International Goals" VARCHAR NOT NULL, 
-	"JerseyNum" DECIMAL NOT NULL, 
-	"NxtPosition" VARCHAR, 
-	"Profile" VARCHAR NOT NULL, 
-	"TDetails" VARCHAR, 
-	"TNum" VARCHAR, 
-	"Trophies" VARCHAR, 
-	age DECIMAL NOT NULL, 
-	"contract until" VARCHAR NOT NULL, 
-	"current club" VARCHAR NOT NULL, 
-	"current league" VARCHAR NOT NULL, 
-	foot VARCHAR, 
-	height DECIMAL, 
-	"in the team since" DATE NOT NULL, 
-	name VARCHAR NOT NULL, 
-	nationality VARCHAR NOT NULL, 
-	"player agents" VARCHAR, 
-	"playerID" DECIMAL NOT NULL, 
-	position VARCHAR NOT NULL, 
-	"social media" VARCHAR
-'''
+
+
+
 class Players(Resource):
     def get(self,leagueCode):
         conn = playersDB.connect()
-        query = conn.execute("select name from '%s'"%leagueCode)
+        query = conn.execute("select name, playerID, foot, height, `current club`, nationality,Trophies, `in the team since`,Profile, NxtPosition, `contract until`, Availability, CurrentValue from '%s'"%leagueCode)
         rows =  ((query.cursor.fetchall()))
         result =[]
         for row in rows:
-            result.append({'Name':row[0]
-                        #    'HomeTeam':row[1],
-                        #    'AwayTeam':row[2],
-                        #    'Full Time Home Goals':row[3],
-                        #    'Full Time Away Team Goals':row[4],
-                        #    'Half Time Home Team Goals':row[5],
-                        #    'Half Time Away Team Goals' : row[6],
-                        #    'Half Time Result': row[7],
-                        #    'Full Time Result':row[8]
+            result.append({'Name':row[0],
+                           'ID':row[1],
+                           'Foot':row[2],
+                           'Height':row[3],
+                           'Current Club':row[4],
+                           'Nationality':row[5],
+                           'Trophies' : row[6],
+                           'In the team since': row[7],
+                           'Picture':row[8],
+                           'Other Positions':row[9],
+                           'End Contract':row[10],
+                           'Availaibility':row[11],
+                           'Current Value':row[12]
                            })
         conn.close()
         return result 
